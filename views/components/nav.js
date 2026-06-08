@@ -5,7 +5,7 @@ const createNavHome = () => {
   const createNvLogin = () => {}
     navbar.innerHTML = `
     <div class="max-w-7xl bg-green-400  h-16 mx-auto flex items-center px-4 justify-between">
-        <p class="font-bold text-xl">TodoAppp</p>
+        <p class="font-bold text-xl text-white">TodoAppp</p>
 
         <!--version movil-->
         

@@ -24,7 +24,7 @@ app.use('/', express.static(path.resolve('views', 'home')));
 app.use('/components', express.static(path.resolve('views', 'components')));
 app.use('/login', express.static(path.resolve('views', 'login')));
 app.use('/register', express.static(path.resolve('views', 'register')));
-app.use('/img', express.static(path.resolve('src', 'img')));
+app.use('/media', express.static(path.resolve('views', 'media')));
 
 app.use(express.static('src'));
 
