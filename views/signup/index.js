@@ -8,7 +8,6 @@ const passwordInput = document.getElementById("password-input");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  console.log("hola");
   try {
     const newUser = {
       name: nameInput.value,
