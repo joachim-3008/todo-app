@@ -122,8 +122,6 @@ if (window.location.pathname === '/') {
   createNavLogin();
 }
 
-
-
   const navBtn = document.querySelector('#navBtn');
   const menuMobile = document.querySelector('#menuMobile');
 
