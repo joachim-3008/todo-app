@@ -35,6 +35,7 @@ app.use('/signup', express.static(path.resolve('views', 'signup')));
 app.use('/components', express.static(path.resolve('views', 'components')));
 app.use('/login', express.static(path.resolve('views', 'login')));
 app.use('/media', express.static(path.resolve('views', 'media')));
+app.use('/verify/:id/:token', express.static(path.resolve('views', 'verify')));
 
 app.use(express.static('src'));
 
@@ -43,7 +44,6 @@ app.use(morgan('tiny'));
 //rutas backend
 app.use('/api/users', usersRouter);
 
-<<<<<<< HEAD
 
 
 console.log(`Servidor corriendo en ${PAGE_URL}`);
@@ -52,6 +52,4 @@ console.log(`Servidor corriendo en ${PAGE_URL}`);
 module.exports = app;
 
 
-=======
 module.exports = app;
->>>>>>> 5e17373e42111131b70fe031d4611eac40f09148
