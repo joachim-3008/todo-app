@@ -36,8 +36,8 @@
             placeholder="Ingresa tu Nombre"
             class="rounded-lg p-2 bg-zinc-100 focus:outline-indigo-700"
           />
-          <p class="text-sm etxt-zinc-800">
-            Tanto el nombre como el apellido deben comenzar con mayusculas
+          <p class="text-sm etxt-zinc-800" id="information">
+            Debe incluir minimo 3 caracteres maximo 16 caracteres incluyendo números
           </p>
         </div>
         <div class="flex flex-col gap-2">
@@ -52,7 +52,7 @@
             placeholder="ejemplo@gmail.com"
             class="rounded-lg p-2 bg-zinc-100 focus:outline-indigo-700"
           />
-          <p class="text-sm etxt-zinc-800">El correo es requerido</p>
+          <p class="text-sm etxt-zinc-800">El correo debe seguir el siguiente formato: ejemplo@gmail.com</p>
         </div>
         <div class="flex flex-col gap-2">
           <label class="font-bold" for="password-input"
@@ -67,9 +67,7 @@
             class="rounded-lg p-2 bg-zinc-100 focus:outline-indigo-700"
           />
           <p class="text-sm etxt-zinc-800">
-            Debe tener al menos una letra <br />
-            Debe tener al menos un numero <br />
-            Debe tener al menos 8 caracteres
+            Debe incluir minimo 6 caracteres maximo 12 caracteres, minimo una letra mayuscula
           </p>
         </div>
         <div class="flex flex-col gap-2">
@@ -91,12 +89,14 @@
           id="form-btn"
           type="submit"
           class="bg-indigo-700 py-2 px-4 rounded-lg font-bold text-white hover:bg-indigo-800 text-center transition ease-in-out disabled:opacity-40 disabled:cursor-not-allowed"
+          
         >
           Registrar
         </button>
       </form>
     </div>
     <script src="/components/nav.js"></script>
-    <!-- <script src="index.js"></script> -->
+    <script type="module" src="index.js"></script>
+    <script type="module" src="/components/notification.js"></script>
   </body>
 </html>
