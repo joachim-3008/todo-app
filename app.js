@@ -43,6 +43,7 @@ app.use(morgan('tiny'));
 //rutas backend
 app.use('/api/users', usersRouter);
 
+<<<<<<< HEAD
 
 
 console.log(`Servidor corriendo en ${PAGE_URL}`);
@@ -51,3 +52,6 @@ console.log(`Servidor corriendo en ${PAGE_URL}`);
 module.exports = app;
 
 
+=======
+module.exports = app;
+>>>>>>> 5e17373e42111131b70fe031d4611eac40f09148
