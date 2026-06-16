@@ -8,6 +8,7 @@ const cokkieParser = require('cookie-parser');
 const morgan = require('morgan');
 const app = express();
 const usersRouter = require('./controllers/users');
+const { PAGE_URL }  = require('./config');
 
 
 
@@ -44,7 +45,7 @@ app.use('/api/users', usersRouter);
 
 
 
-
+console.log(`Servidor corriendo en ${PAGE_URL}`);
 
 
 module.exports = app;
