@@ -43,11 +43,4 @@ app.use(morgan('tiny'));
 //rutas backend
 app.use('/api/users', usersRouter);
 
-
-
-
-
-
 module.exports = app;
-
-
