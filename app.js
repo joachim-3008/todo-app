@@ -8,6 +8,7 @@ const cokkieParser = require('cookie-parser');
 const morgan = require('morgan');
 const app = express();
 const usersRouter = require('./controllers/users');
+const loginRouter = require('./controllers/login');
 
 
 
@@ -35,11 +36,13 @@ app.use('/components', express.static(path.resolve('views', 'components')));
 app.use('/login', express.static(path.resolve('views', 'login')));
 app.use('/media', express.static(path.resolve('views', 'media')));
 
-app.use(express.static('src'));
-
-app.use(morgan('tiny'));
-
 //rutas backend
 app.use('/api/users', usersRouter);
+app.use('/api/login', loginRouter);
+
+app.use(express.static('src'));
+app.use(morgan('tiny'));
+
+
 
 module.exports = app;
