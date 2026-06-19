@@ -8,7 +8,7 @@ const cokkieParser = require('cookie-parser');
 const morgan = require('morgan');
 const app = express();
 const usersRouter = require('./controllers/users');
-const loginRouter = require('./controllers/login');
+const { PAGE_URL }  = require('./config');
 
 
 
@@ -35,14 +35,20 @@ app.use('/signup', express.static(path.resolve('views', 'signup')));
 app.use('/components', express.static(path.resolve('views', 'components')));
 app.use('/login', express.static(path.resolve('views', 'login')));
 app.use('/media', express.static(path.resolve('views', 'media')));
-
-//rutas backend
-app.use('/api/users', usersRouter);
-app.use('/api/login', loginRouter);
+app.use('/verify/:id/:token', express.static(path.resolve('views', 'verify')));
 
 app.use(express.static('src'));
 app.use(morgan('tiny'));
 
+//rutas backend
+app.use('/api/users', usersRouter);
+
+
+
+console.log(`Servidor corriendo en ${PAGE_URL}`);
+
+
+module.exports = app;
 
 
 module.exports = app;
