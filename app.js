@@ -9,7 +9,7 @@ const morgan = require('morgan');
 const app = express();
 const usersRouter = require('./controllers/users');
 const { PAGE_URL }  = require('./config');
-
+const loginRouter = require('./controllers/login');
 
 
 //funcion autoinvocada
@@ -42,13 +42,8 @@ app.use(morgan('tiny'));
 
 //rutas backend
 app.use('/api/users', usersRouter);
-
-
+app.use('/api/login', loginRouter);
 
 console.log(`Servidor corriendo en ${PAGE_URL}`);
-
-
-module.exports = app;
-
 
 module.exports = app;

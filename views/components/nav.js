@@ -85,21 +85,20 @@ if (window.location.pathname === '/') {
   createNavLogin();
 }
 
-  const navBtn = document.querySelector('#navBtn');
-  const menuMobile = document.querySelector('#menuMobile');
+const navBtn = navbar.children[0].children[1];
 
-  if (navBtn && menuMobile) {
-    navBtn.addEventListener('click', e => {
-      if (!navBtn.classList.contains('active')) {
+navBtn.addEventListener('click', e => {
+    const menuMobile = navbar.children[0].children[2];
+    
+    if (!navBtn.classList.contains('active')) {
+        navBtn.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />`
         navBtn.classList.add('active');
-        navBtn.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M3 4.5h14.25M3 9h9.75M3 13.5h5.25m5.25-.75L17.25 9m0 0L21 12.75M17.25 9v12" />';
         menuMobile.classList.remove('hidden');
         menuMobile.classList.add('flex');
-      } else {
+    } else {
+        navBtn.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />`;
         navBtn.classList.remove('active');
-        navBtn.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0-3.75-3.75M17.25 21 21 17.25" />';
         menuMobile.classList.add('hidden');
         menuMobile.classList.remove('flex');
-      }
-    });
-  }
+    }
+})
