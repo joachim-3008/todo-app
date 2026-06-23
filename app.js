@@ -10,6 +10,7 @@ const app = express();
 const usersRouter = require('./controllers/users');
 const { PAGE_URL }  = require('./config');
 const loginRouter = require('./controllers/login');
+const logoutRouter = require('./controllers/logout');
 
 
 //funcion autoinvocada
@@ -50,6 +51,7 @@ app.use((req, res, next) => {
 //rutas backend
 app.use('/api/users', usersRouter);
 app.use('/api/login', loginRouter);
+app.use('/api/logout', logoutRouter);
 
 console.log(`Servidor corriendo en ${PAGE_URL}`);
 

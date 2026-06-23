@@ -83,6 +83,8 @@ if (window.location.pathname === '/') {
   createNavSignup();
 } else if (window.location.pathname === '/login/'){
   createNavLogin();
+}else if (window.location.pathname === '/todos/'){
+  createNavTodos();
 }
 
 const navBtn = navbar.children[0].children[1];
@@ -100,5 +102,25 @@ navBtn.addEventListener('click', e => {
         navBtn.classList.remove('active');
         menuMobile.classList.add('hidden');
         menuMobile.classList.remove('flex');
+    }
+})
+
+const btnCloseDesktop = (navbar.children[0].children[2].children[0]);
+const btnCloseMobile = (navbar.children[0].children[3].children[0]);
+
+btnCloseDesktop.addEventListener('click', async e => {
+    try {
+        await axios.get('/api/logout');
+        window.location.pathname = '/login';
+    } catch (error) {
+        console.log(error);
+    }
+})
+btnCloseMobile.addEventListener('click', async e => {
+    try {
+        await axios.get('/api/logout');
+        window.location.pathname = '/login';
+    } catch (error) {
+        console.log(error);
     }
 })
