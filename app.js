@@ -40,6 +40,13 @@ app.use('/verify/:id/:token', express.static(path.resolve('views', 'verify')));
 app.use(express.static('src'));
 app.use(morgan('tiny'));
 
+app.use((req, res, next) => {
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
+  next();
+});
+
 //rutas backend
 app.use('/api/users', usersRouter);
 app.use('/api/login', loginRouter);
