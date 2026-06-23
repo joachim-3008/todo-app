@@ -66,39 +66,43 @@ const createNavTodos = () => {
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                             </svg>
                             <div class="bg-gray-950 fixed top-16 right-0 left-0 bottom-0 justify-center items-center flex-col gap-4 hidden">
-                                <button id="close-btn" class="transition ease-in-out text-white font-bold bg-indigo-500 hover:bg-blue-600 py-2 px-4 rounded-lg">Close Session</button>
+                                <button id="close-btn" class="transition ease-in-out text-white font-bold bg-red-500 hover:bg-red-600 py-2 px-4 rounded-lg">Close Session</button>
                             </div>
                                 
                             <!-- version de escritorio -->
                             <div class="hidden md:flex flex-row gap-4">
-                                <button id="close-btn" class="transition ease-in-out text-white font-bold bg-indigo-500 hover:bg-blue-600 py-2 px-4 rounded-lg">Close Session</button>
+                                <button id="close-btn" class="transition ease-in-out text-white font-bold bg-red-500 hover:bg-red-600 py-2 px-4 rounded-lg">Close Session</button>
                             </div>
                         </div>`;
 };
 
 
-if (window.location.pathname === '/') {
-  createNavHome();
-} else if (window.location.pathname === '/signup/'){
-  createNavSignup();
-} else if (window.location.pathname === '/login/'){
-  createNavLogin();
+const path = window.location.pathname;
+
+if (path === '/' || path === '') {
+    createNavHome();
+} else if (path === '/signup' || path === '/signup/') {
+    createNavSignup();
+} else if (path === '/login' || path === '/login/') {
+    createNavLogin();
+} else if (path === '/todo' || path === '/todo/') {
+    createNavTodos();
 }
 
 const navBtn = navbar.children[0].children[1];
 
 navBtn.addEventListener('click', e => {
-    const menuMobile = navbar.children[0].children[2];
-    
-    if (!navBtn.classList.contains('active')) {
-        navBtn.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />`
-        navBtn.classList.add('active');
-        menuMobile.classList.remove('hidden');
-        menuMobile.classList.add('flex');
-    } else {
-        navBtn.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />`;
-        navBtn.classList.remove('active');
-        menuMobile.classList.add('hidden');
-        menuMobile.classList.remove('flex');
+const menuMobile = navbar.children[0].children[2];
+
+if (!navBtn.classList.contains('active')) {
+    navBtn.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />`;
+    navBtn.classList.add('active');
+    menuMobile.classList.remove('hidden');
+    menuMobile.classList.add('flex');
+} else {
+    navBtn.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />`;
+    navBtn.classList.remove('active');
+    menuMobile.classList.add('hidden');
+    menuMobile.classList.remove('flex');
     }
-})
+});

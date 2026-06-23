@@ -10,7 +10,7 @@ const form = document.querySelector('#form');
 const errorText = document.querySelector('#error-text');
 
 // EVENTO ENViO DEL FORMULARIO
-form.addEventListener('submit', e => {
+form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     try {
@@ -19,6 +19,7 @@ form.addEventListener('submit', e => {
         email: emailInput.value,
         password: passwordInput.value
     };
+
     // envia los datos del usuario al backend mediante una peticion "HTTP POST" usando Axios
     await axios.post('/api/login', user);
 
