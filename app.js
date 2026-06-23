@@ -10,14 +10,12 @@ const cokkieParser = require('cookie-parser');
 const morgan = require('morgan');
 const usersRouter = require('./controllers/users');
 const loginRouter = require('./controllers/login');
-const { PAGE_URL } = require('./config');
+const logoutRouter = require('./controllers/logout');
 
-const app = express();
 
-// ==========================================
-// CONEXION A LA BASE DE DATOS
-// ==========================================
-(async () => {
+//funcion autoinvocada
+(async() => {
+
     try {
         await mongoose.connect(process.env.MONGO_URI_TEST);
         console.log('Conexión a la base de datos establecida');
@@ -51,17 +49,23 @@ app.use('/login', express.static(path.resolve('views', 'login')));
 app.use('/todo', express.static(path.resolve('views', 'todo')));
 app.use('/verify/:id/:token', express.static(path.resolve('views', 'verify')));
 
-// servidor de codigo de backend
-// app.use(express.static('src'));
+app.use(express.static('src'));
+app.use(morgan('tiny'));
+
+app.use((req, res, next) => {
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
+  next();
+});
 
 // ==========================================
 // RUTAS DEL BACKEND (APIs)
 // ==========================================
 app.use('/api/users', usersRouter);
 app.use('/api/login', loginRouter);
-// ==========================================
-// INICIO Y EXPORTACIoN DEL SERVIDOR
-// ==========================================
-console.log(`Servidor listo para correr en ${PAGE_URL}`);
+app.use('/api/logout', logoutRouter);
+
+console.log(`Servidor corriendo en ${PAGE_URL}`);
 
 module.exports = app;

@@ -12,24 +12,31 @@ const passwordInput = document.getElementById("password-input");
 const matchInput = document.getElementById("match-input");
 const formBtn = document.getElementById("form-btn");
 const notification = document.getElementById("notification");
+const information = document.querySelectorAll("#information");
 
-//validations
-
+// validations
 let nameValidation = false;
 let emailValidation = false;
 let passwordValidation = false;
 let matchValidation = false;
 
-const validation = (input, regexValidation) => {
+information.forEach((info) => {
+  info.classList.add("hidden");
+});
+
+const validation = (input, regexValidation, informationElement) => {
   if (input.value === "") {
     input.classList.remove("outline-red-500", "outline-2", "outline");
     input.classList.remove("outline-green-500", "outline-2", "outline");
+    if (informationElement) informationElement.classList.add("hidden");
     input.classList.add("focus:outline-indigo-700");
   } else if (!regexValidation) {
     input.classList.remove("focus:outline-indigo-700");
+    if (informationElement) informationElement.classList.remove("hidden");
     input.classList.add("outline-red-500", "outline-2", "outline");
   } else {
     input.classList.remove("outline-red-500", "outline-2", "outline");
+    if (informationElement) informationElement.classList.add("hidden");
     input.classList.add("outline-green-500", "outline-2", "outline");
   }
 
@@ -39,61 +46,102 @@ const validation = (input, regexValidation) => {
       : true;
 };
 
-//events
-
+// events
 nameInput.addEventListener("input", (e) => {
   nameValidation = REGEX_USERNAME.test(nameInput.value);
-  validation(nameInput, nameValidation);
+  validation(nameInput, nameValidation, information[0]);
 });
 
 emailInput.addEventListener("input", (e) => {
   emailValidation = REGEX_EMAIL.test(emailInput.value);
-  validation(emailInput, emailValidation);
+  validation(emailInput, emailValidation, information[1]);
 });
 
 passwordInput.addEventListener("input", (e) => {
   passwordValidation = REGEX_PASSWORD.test(passwordInput.value);
   matchValidation = e.target.value === matchInput.value;
-  validation(passwordInput, passwordValidation);
-  validation(matchInput, matchValidation);
+  validation(passwordInput, passwordValidation, information[2]);
+  validation(matchInput, matchValidation, information[3]);
 });
 
 matchInput.addEventListener("input", (e) => {
   matchValidation = e.target.value === passwordInput.value;
-  validation(matchInput, matchValidation);
+  validation(matchInput, matchValidation, information[3]);
 });
 
-// recuerda poner el boton en disabled para evitar que se envie el formulario sin llenar los campos
-
+// EVENTO PRINCIPAL DEL FORMULARIO
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  console.log("enviando formulario");
+  
+  // Desactivar el botón inmediatamente para evitar doble clic
+  formBtn.disabled = true;
+  const originalBtnText = formBtn.innerHTML;
+  formBtn.innerHTML = "Procesando..."; 
+
+  console.log("Enviando formulario...");
+  
   try {
     const newUser = {
       name: nameInput.value,
       email: emailInput.value,
       password: passwordInput.value,
     };
+
+    // Envía los datos al backend en Node.js
     const { data } = await axios.post("/api/users", newUser);
-    createNotification(false, data);
-    setTimeout(() => {
-      notification.classList.add("hidden");
-    }, 5000);
+    console.log("Respuesta del servidor:", data);
 
-    nameInput.value = "";
-    emailInput.value = "";
-    passwordInput.value = "";
-    matchInput.value = "";
+    // --- EVALUAMOS LA REDIRECCIÓN DE FORMA CORRECTA ---
+    // Como data ahora contiene el objeto { message: "..." }, revisamos data.message
+    if (data && data.message === "Usuario creado y verificado exitosamente") {
+      
+      createNotification(false, "¡Cuenta verificada automáticamente!");
+      
+      // Esperamos un momento breve para que el usuario logre leer la notificación antes de irse
+      setTimeout(() => {
+        window.location.href = "../login/index.html"; 
+      }, 1500);
 
-    validation(nameInput, false);
-    validation(emailInput, false);
-    validation(passwordInput, false);
-    validation(matchInput, false);
+    } else {
+      // Flujo tradicional si requiere validación manual por Nodemailer
+      createNotification(false, data);
+      setTimeout(() => {
+        notification.classList.add("hidden");
+      }, 5000);
+
+      // Resetear valores de los inputs solo si no redirige de inmediato
+      nameInput.value = "";
+      emailInput.value = "";
+      passwordInput.value = "";
+      matchInput.value = "";
+
+      // Resetear las variables de control
+      nameValidation = false;
+      emailValidation = false;
+      passwordValidation = false;
+      matchValidation = false;
+
+      // Limpiar estilos visuales de Tailwind volviendo al estado inicial vacío
+      validation(nameInput, false);
+      validation(emailInput, false);
+      validation(passwordInput, false);
+      validation(matchInput, false);
+    }
     
   } catch (error) {
-    createNotification(true, error.response.data.error);
+    // Si el backend lanza un error (400), se captura aquí:
+    console.error("Error capturado:", error);
+    const errorMsg = error.response && error.response.data && error.response.data.error 
+      ? error.response.data.error 
+      : "Hubo un error interno.";
+      
+    createNotification(true, errorMsg);
     setTimeout(() => {
       notification.classList.add("hidden");
     }, 5000);
+
+    // Reactivar el botón para que pueda corregir sus datos
+    formBtn.disabled = false;
+    formBtn.innerHTML = originalBtnText;
   }
 });

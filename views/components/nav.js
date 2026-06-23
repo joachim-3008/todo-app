@@ -77,16 +77,14 @@ const createNavTodos = () => {
 };
 
 
-const path = window.location.pathname;
-
-if (path === '/' || path === '') {
-    createNavHome();
-} else if (path === '/signup' || path === '/signup/') {
-    createNavSignup();
-} else if (path === '/login' || path === '/login/') {
-    createNavLogin();
-} else if (path === '/todo' || path === '/todo/') {
-    createNavTodos();
+if (window.location.pathname === '/') {
+  createNavHome();
+} else if (window.location.pathname === '/signup/'){
+  createNavSignup();
+} else if (window.location.pathname === '/login/'){
+  createNavLogin();
+}else if (window.location.pathname === '/todos/'){
+  createNavTodos();
 }
 
 const navBtn = navbar.children[0].children[1];
@@ -105,4 +103,24 @@ if (!navBtn.classList.contains('active')) {
     menuMobile.classList.add('hidden');
     menuMobile.classList.remove('flex');
     }
-});
+})
+
+const btnCloseDesktop = (navbar.children[0].children[2].children[0]);
+const btnCloseMobile = (navbar.children[0].children[3].children[0]);
+
+btnCloseDesktop.addEventListener('click', async e => {
+    try {
+        await axios.get('/api/logout');
+        window.location.pathname = '/login';
+    } catch (error) {
+        console.log(error);
+    }
+})
+btnCloseMobile.addEventListener('click', async e => {
+    try {
+        await axios.get('/api/logout');
+        window.location.pathname = '/login';
+    } catch (error) {
+        console.log(error);
+    }
+})
