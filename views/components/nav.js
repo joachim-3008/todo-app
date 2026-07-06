@@ -58,7 +58,7 @@ const createNavLogin = () => {
                         </div>`;
 };
 
-const createNavTodos = () => {
+const createNavTodo = () => {
         navbar.innerHTML = `<div class="max-w-7xl bg-gray-950 h-16 mx-auto flex items-center px-4 justify-between">
          <a href="/" class="font-bold text-xl text-orange-400">TodoApp</a>
                             <!-- version mobile -->
@@ -83,8 +83,8 @@ if (window.location.pathname === '/') {
   createNavSignup();
 } else if (window.location.pathname === '/login/'){
   createNavLogin();
-}else if (window.location.pathname === '/todos/'){
-  createNavTodos();
+}else if (window.location.pathname === '/todo/'){
+  createNavTodo();
 }
 
 const navBtn = navbar.children[0].children[1];

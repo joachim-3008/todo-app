@@ -1,5 +1,6 @@
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') }); 
+const axios = require('axios');
 
 async function validateEmail(email) {
     if (!email) {

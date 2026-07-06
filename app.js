@@ -7,12 +7,14 @@ const app = express();
 const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
-const cokkieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const usersRouter = require('./controllers/users');
 const loginRouter = require('./controllers/login');
 const logoutRouter = require('./controllers/logout');
+const todoRouter = require('./controllers/todos');
 const { PAGE_URL } = require('./config');
+const { userExtractor } = require('./middleware/auth');
 
 //funcion autoinvocada
 (async() => {
@@ -30,7 +32,7 @@ const { PAGE_URL } = require('./config');
 // ==========================================
 app.use(cors());
 app.use(express.json());
-app.use(cokkieParser());
+app.use(cookieParser());
 app.use(morgan('tiny')); // registra las peticiones en la terminal
 
 // ==========================================
@@ -51,7 +53,6 @@ app.use('/todo', express.static(path.resolve('views', 'todo')));
 app.use('/verify/:id/:token', express.static(path.resolve('views', 'verify')));
 
 app.use(express.static('src'));
-app.use(morgan('tiny'));
 
 app.use((req, res, next) => {
   res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
@@ -66,6 +67,7 @@ app.use((req, res, next) => {
 app.use('/api/users', usersRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/logout', logoutRouter);
+app.use('/api/todos', userExtractor, todoRouter);
 
 
 console.log(`Servidor corriendo en ${PAGE_URL}`);

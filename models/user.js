@@ -1,11 +1,18 @@
-const mongose = require("mongoose");
+const mongoose = require("mongoose");
 
 //modelos o esquemas de la base de datos
-const userSchema = new mongose.Schema({
+const userSchema = new mongoose.Schema({
   name: String,
   email: String,
   passwordHash: String,
-  verified: { type: Boolean, default: false },
+  verified: { 
+    type: Boolean, 
+    default: false 
+  },
+  todo: [{
+    type : mongoose.Schema.Types.ObjectId,
+    ref: "Todo",
+  }]
 });
 
 userSchema.set("toJSON", {
@@ -17,6 +24,6 @@ userSchema.set("toJSON", {
   },
 });
 
-const User = mongose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;
