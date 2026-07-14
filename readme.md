@@ -29,6 +29,10 @@ Create a `.env` file in the root with the following variables:
 
 See `.env.example` for a template.
 
+## 🚀 Demo
+
+You can view the live application here: [[text](https://todo-app-7i8z.onrender.com/)]
+
 ## 📦 Installation
 
 Clone the repository and install dependencies:
