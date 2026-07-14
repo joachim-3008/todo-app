@@ -33,7 +33,7 @@ const todoCount = () => {
 //Agregar una nueva tarea (evento submit del form)
 form.addEventListener('submit', async e => {
 	e.preventDefault();
-
+	console.log("probando el submit del form");
 	// Validación del input
 	if (input.value === '') {
 		input.classList.remove('focus:ring-2', 'focus:ring-violet-600');
@@ -49,11 +49,13 @@ form.addEventListener('submit', async e => {
 
 	// Crear tarea en el backend
 	const { data } = await axios.post('/api/todos', { text: input.value });
-	console.log(data);
+	console.log("esta es la data ",data);
+
 
 	//Crear el elemento <li> en el DOM
 	const listItem = document.createElement('li');
-	listItem.id = data._id;
+	listItem.id = data.id;
+	console.log("este es el listItem:", listItem.id);
 	listItem.classList.add('flex', 'flex-row');
 	listItem.innerHTML = `
 		<div class="group grow flex flex-row justify-between">

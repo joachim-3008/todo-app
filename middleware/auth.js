@@ -1,18 +1,18 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/user'); 
+const User = require('../models/user');
+
 
 const userExtractor = async (req, res, next) => {
-
     try {
-        const token = req.cookies?.accessToken;
+        const token = req.cookies.acces_token;
         if (!token) {
-            return res.sendStatus(401);
+            return res.status(401).json({ error: 'No token provided' });
         }
-        const decoded = jwt.verify(token, process.env.ACCES_TOKEN_SECRET);
+        const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
         const user = await User.findById(decoded.id);
         req.user = user;
     } catch (error) {
-        return res.sendStatus(403);
+        return res.status(401).json({ error: 'Invalid token' });
     }
     next();
 };

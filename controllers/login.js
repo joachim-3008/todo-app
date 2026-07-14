@@ -44,7 +44,7 @@ loginRouter.post('/', async (req, res) => {
 
     // RESPUESTA AL CLIENTE (COOKIE)
     // guarda el token generado en una cookie del navegador llamada 'accessToken'
-    res.cookie('accesToken', accessToken, {
+    res.cookie('acces_token', accessToken, {
         // establece la fecha de expiracion de la cookie para dentro de 24 horas (en milisegundoss)
         expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
 
