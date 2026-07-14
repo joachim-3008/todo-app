@@ -29,10 +29,6 @@ Create a `.env` file in the root with the following variables:
 
 See `.env.example` for a template.
 
-## 🚀 Demo
-
-You can view the live application here: [[text](https://todo-app-3uda.onrender.com)]
-
 ## 📦 Installation
 
 Clone the repository and install dependencies:
@@ -44,4 +40,4 @@ npm install
 ```
 ## Created by:
 
-* [@joachim-3008](https://www.github.com/joachim-3008) & * [@ques0telita](https://www.github.com/ques0telita)!
+* [@joachim-3008](https://www.github.com/joachim-3008) & [@ques0telita](https://www.github.com/ques0telita)!

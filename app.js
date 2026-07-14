@@ -14,6 +14,7 @@ const loginRouter = require('./controllers/login');
 const logoutRouter = require('./controllers/logout');
 const todoRouter = require('./controllers/todos');
 const { PAGE_URL } = require('./config');
+const { MONGO_URI } = require('./config');
 const { userExtractor } = require('./middleware/auth');
 
 //============================================
@@ -22,7 +23,7 @@ const { userExtractor } = require('./middleware/auth');
 (async() => {
 
     try {
-        await mongoose.connect(process.env.MONGO_URI_TEST);
+        await mongoose.connect(MONGO_URI);
         console.log('Conexión a la base de datos establecida');
     } catch (error) {
         console.error('Error al conectar a la BD:', error);
