@@ -1,21 +1,20 @@
 const logoutRouter = require("express").Router();
-const { response } = require("express");
 
-logoutRouter.post("/", async (req, res) => {
-  const cookie = req.cookie;
+
+logoutRouter.get("/", async (req, res) => {
+  const cookie = req.cookies;
   
-  if(!cookie?.accessToken){
-    return response.sendStatus(401);
-
+  // CORRECCIÓN: usa 'acces_token' (todo en minúsculas)
+  if(!cookie?.acces_token){ 
+    return res.sendStatus(401);
   }
 
-  response.clearCookie('accesToken', {
+  // CORRECCIÓN: usa 'acces_token' aquí también
+  res.clearCookie('acces_token', {
     secure: process.env.NODE_ENV === 'production',
     httpOnly: true
   });
 
-  return response.sendStatus(204);
-
+  return res.sendStatus(204);
 });
-
 module.exports = logoutRouter;
