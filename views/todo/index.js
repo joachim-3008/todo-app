@@ -7,7 +7,6 @@ const totalCountSpan = document.querySelector('.total-count');
 const completedCountSpan = document.querySelector('.completed-count');
 const incompletedCountSpan = document.querySelector('.incompleted-count');
 
-
 //Funciones de conteo de tareas
 const totalCount = () => {
 	const howMany = document.querySelector('ul').children.length; 
@@ -52,10 +51,9 @@ form.addEventListener('submit', async e => {
 	const { data } = await axios.post('/api/todos', { text: input.value });
 	console.log(data);
 
-
 	//Crear el elemento <li> en el DOM
 	const listItem = document.createElement('li');
-	listItem.id = data.id;
+	listItem.id = data._id;
 	listItem.classList.add('flex', 'flex-row');
 	listItem.innerHTML = `
 		<div class="group grow flex flex-row justify-between">
@@ -99,6 +97,7 @@ ul.addEventListener('click', async e => {
 	if (e.target.closest('.check-icon')) {
 		const checkIcon = e.target.closest('.check-icon');
 		const listItem = checkIcon.parentElement;
+
 		if (!listItem.classList.contains('line-through')) {
 			await axios.patch(`/api/todos/${listItem.id}`, {checked: true});
 			checkIcon.classList.add('bg-green-400');
@@ -164,3 +163,4 @@ ul.addEventListener('click', async e => {
         console.log(error);
 	}
 })();
+console.log('todo page loaded');

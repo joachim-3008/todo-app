@@ -31,3 +31,4 @@ form.addEventListener('submit', async (e) => {
         errorText.innerHTML = error.response.data.error;
     }
 });
+console.log('Login page loaded');

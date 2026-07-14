@@ -16,7 +16,9 @@ const todoRouter = require('./controllers/todos');
 const { PAGE_URL } = require('./config');
 const { userExtractor } = require('./middleware/auth');
 
-//funcion autoinvocada
+//============================================
+// CONEXION A LA BASE DE DATOS
+//============================================
 (async() => {
 
     try {
@@ -31,12 +33,12 @@ const { userExtractor } = require('./middleware/auth');
 // MIDDLEWARES GLOBALES (Confi)
 // ==========================================
 app.use(cors());
-app.use(express.json());
-app.use(cookieParser());
+app.use(express.json()); // permite que el servidor pueda recibir y procesar solicitudes con datos en formato json
+app.use(cookieParser()); // permite acceder a las cookies en las solicitudes
 app.use(morgan('tiny')); // registra las peticiones en la terminal
 
 // ==========================================
-// RUTAS PARA ARCHIVOS ESTaTICOS GLOBALES
+// RUTAS PARA ARCHIVOS ESTATICOS GLOBALES
 // ==========================================
 // Esto permite que /login, /signup o /todo puedan acceder a sus estilos, imágenes y componentes comunes
 app.use('/styles', express.static(path.resolve('src')));
@@ -52,8 +54,14 @@ app.use('/login', express.static(path.resolve('views', 'login')));
 app.use('/todo', express.static(path.resolve('views', 'todo')));
 app.use('/verify/:id/:token', express.static(path.resolve('views', 'verify')));
 
+//============================================
+// RUTA PARA ARCHIVOS ESTATICOS
+//============================================
 app.use(express.static('src'));
 
+//============================================
+// EVITAR CACHEO DE ESTATICOS
+//============================================
 app.use((req, res, next) => {
   res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
   res.header('Expires', '-1');
@@ -66,10 +74,13 @@ app.use((req, res, next) => {
 // ==========================================
 app.use('/api/users', usersRouter);
 app.use('/api/login', loginRouter);
-app.use('/api/logout', logoutRouter);
 app.use('/api/todos', userExtractor, todoRouter);
+app.use('/api/logout', logoutRouter);
 
 
+// ==========================================
+// INICIAR EL SERVIDOR
+//===========================================
 console.log(`Servidor corriendo en ${PAGE_URL}`);
 
 module.exports = app;
