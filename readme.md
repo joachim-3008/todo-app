@@ -31,7 +31,7 @@ See `.env.example` for a template.
 
 ## 🚀 Demo
 
-You can view the live application here: [https://joachim-3008.github.io/todo-app]
+You can view the live application here: [[text](https://todo-app-3uda.onrender.com)]
 
 ## 📦 Installation
 
@@ -44,4 +44,4 @@ npm install
 ```
 ## Created by:
 
-@joachim-3008 & @ques0telita!
+* [@joachim-3008](https://www.github.com/joachim-3008) & * [@ques0telita](https://www.github.com/ques0telita)!
