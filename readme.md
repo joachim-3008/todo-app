@@ -31,7 +31,7 @@ See `.env.example` for a template.
 
 ## 🚀 Demo
 
-You can view the live application here: [[text](https://todo-app-3uda.onrender.com)]
+You can view the live application here: [[text](https://todo-app-7i8z.onrender.com/)]
 
 ## 📦 Installation
 
